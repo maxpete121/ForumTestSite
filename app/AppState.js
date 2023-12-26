@@ -10,6 +10,8 @@ class ObservableAppState extends EventEmitter {
 
 /**@type {Post[]} */
   Posts = []
+
+  comments = []
 }
 
 export const AppState = createObservableProxy(new ObservableAppState())

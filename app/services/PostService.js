@@ -1,6 +1,7 @@
 import { AppState } from "../AppState.js"
 import { Post } from "../models/Post.js"
 import { getFormData } from "../utils/FormHandler.js"
+import { api } from "./AxiosService.js"
 
 
 
@@ -9,14 +10,26 @@ import { getFormData } from "../utils/FormHandler.js"
 class PostService{
 
     async getPosts(){
-        const posts = await api.get('')
+        let response = await api.get('api/posts')
+        console.log('Posts', response)
+        const allPosts = response.data.map(post => new Post(post))
+        AppState.Posts = allPosts
     }
 
     async newPost(postData){
-        const response = await api.post('api/posts', postData)
-        const newPost = new Post(response.data)
+        let response = await api.post('api/posts', postData)
+        let newPost = new Post(response.data)
+        console.log(newPost)
         AppState.Posts.push(newPost)
     }
+
+    async deletePost(postId){
+        let response = await api.delete(`api/posts/${postId}`)
+        let posts = AppState.Posts
+        let deleteP = posts.findIndex(post => postId == post.id)
+        AppState.Posts.splice(deleteP, 1)
+    }
+
 }
 
 export const postService = new PostService()
