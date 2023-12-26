@@ -10,7 +10,7 @@ class ObservableAppState extends EventEmitter {
 
 /**@type {Post[]} */
   Posts = []
-
+/**@type {Comment[]} */
   comments = []
 }
 

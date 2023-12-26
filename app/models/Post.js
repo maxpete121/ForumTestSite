@@ -14,7 +14,7 @@ export class Post{
 
     get postTemplate(){
         return`
-        <div class="w-50 bg-white rounded-2 mt-3">
+        <div class="w-75 bg-white rounded-2 mt-3">
         <div class="d-flex">
         <h6 class="me-2">Post Name</h6>
         <h6>${this.name}</h6>
@@ -25,16 +25,19 @@ export class Post{
         <div>
         <div>${this.body}</div>
         </div>
-        <div>
+        <div class="d-flex">
         ${this.deleteButton}
+        <button class="me-2" onclick="app.CommentController.drawCommentHome()">View Comments</button>
+        <button onclick="app.CommentController.buildCommentForm()">New Comment</button>
         </div>
+        <div id="comment-form"></div>
     </div>
         `
     }
 
     get deleteButton(){
         if(this.profileId = AppState.account.id){
-            return `<button onclick="app.PostController.deletePost('${this.id}')">Delete</button>`
+            return `<button class="me-2" onclick="app.PostController.deletePost('${this.id}')">Delete</button>`
         }else{
             return ``
         }

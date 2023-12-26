@@ -1,14 +1,16 @@
 import { AccountController } from "./controllers/AccountController.js";
+import { CommentController } from "./controllers/CommentController.js";
 import { HomeController } from "./controllers/HomeController.js";
 import { PostController } from "./controllers/PostController.js";
 import { AuthGuard } from "./services/AuthService.js";
+import { commentService } from "./services/CommentService.js";
 import { Router } from "./utils/Router.js";
 
 
 export const router = new Router([
   {
     path: '',
-    controllers: [HomeController, PostController],
+    controllers: [HomeController, PostController, CommentController],
     view: 'app/views/HomeView.html'
   },
   {
