@@ -27,11 +27,33 @@ export class Post{
         </div>
         <div class="d-flex">
         ${this.deleteButton}
-        <button class="me-2" onclick="app.CommentController.drawCommentHome()">View Comments</button>
-        <button onclick="app.CommentController.buildCommentForm()">New Comment</button>
+        <button class="me-2" onclick="app.PostController.drawPostView('${this.id}')">View Post</button>
+        <button class="me-2" onclick="app.CommentController.buildCommentForm('${this.id}')">New Comment</button>
+        <button id="${this.id}1" style="display: none;" onclick="app.CommentController.closeCommentForm('${this.id}')" type="button">Close</button>
         </div>
-        <div id="comment-form"></div>
+        <div id="${this.id}"></div>
     </div>
+        `
+    }
+
+    get singlePostTemplate(){
+        return`
+        <span class="d-flex">
+        <h5 class="me-2">Post Name:</h5>
+        <h5>${this.name}</h5>
+    </span>
+    <span class="d-flex">
+        <h5 class="me-2">Post Topic:</h5>
+        <h5>${this.subText}</h5>
+    </span>
+    <span class="d-flex">
+        <h5 class="me-2">Post Description:</h5>
+        <h5>${this.body}</h5>
+    </span>
+    <span class="d-flex">
+        <h5 class="me-2">Comments:</h5>
+    </span>
+</div>
         `
     }
 
@@ -41,6 +63,20 @@ export class Post{
         }else{
             return ``
         }
+    }
+
+    get commentFormTemplate(){
+        return `
+        <form onsubmit="app.CommentController.postComment()">
+        <div>
+            <h5>Your Comment:</h5>
+            <textarea required name="body" id="" cols="35" rows="3"></textarea>
+        </div>
+        <div>
+            <button type="submit">Post</button>
+        </div>
+    </form>
+        `
     }
 
     static formTemplate(){

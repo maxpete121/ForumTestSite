@@ -1,3 +1,5 @@
+import { AppState } from "../AppState.js"
+import { Post } from "./Post.js"
 
 
 
@@ -15,26 +17,13 @@ export class Comment{
         `
     }
 
-    static commentFormTemplate(){
-        return `
-        <form onsubmit="app.CommentController.postComment()">
-        <div>
-            <h5>Your Comment:</h5>
-            <textarea name="body" id="" cols="35" rows="3"></textarea>
-        </div>
-        <div>
-            <button>Post</button>
-        </div>
-    </form>
-        `
-    }
 
     get commentTemplate(){
         return`
         <div class="comment-card">
         <span class="d-flex">
             <h6 class="me-2">Posted By:</h6>
-            <h6></h6>
+            <h6>${this.postedBy.name}</h6>
         </span>
         <span>
             <p></p>
@@ -42,6 +31,8 @@ export class Comment{
     </div>
         `
     }
+
+
 
     
 }

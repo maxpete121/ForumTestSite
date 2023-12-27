@@ -5,6 +5,7 @@ import { postService } from "../services/PostService.js"
 import { Pop } from "../utils/Pop.js"
 import { getFormData } from "../utils/FormHandler.js"
 import { Account } from "../models/Account.js"
+import { commentService } from "../services/CommentService.js"
 
 function _drawPosts(){
     let allPosts = AppState.Posts
@@ -48,6 +49,17 @@ export class PostController{
             await postService.newPost(postData)
             form.reset()
 
+    }
+
+    async drawPostView(postId){
+        try {
+            let posts = AppState.Posts
+            let viewPost = posts.find(post => post.id == postId)
+            let content = viewPost.singlePostTemplate
+            document.getElementById('comment-view-main').innerHTML = content
+        } catch (error) {
+            Pop.error('Post not found')
+        }
     }
 
     async deletePost(postId){
