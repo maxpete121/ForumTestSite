@@ -67,7 +67,7 @@ export class Post{
 
     get commentFormTemplate(){
         return `
-        <form onsubmit="app.CommentController.postComment()">
+        <form onsubmit="app.CommentController.postComment('${this.id}')">
         <div>
             <h5>Your Comment:</h5>
             <textarea required name="body" id="" cols="35" rows="3"></textarea>

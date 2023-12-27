@@ -8,6 +8,7 @@ import { Pop } from "../utils/Pop.js"
 
 
 
+
 export class CommentController{
     constructor(){
         console.log('Comment Controller Loaded')
@@ -15,10 +16,10 @@ export class CommentController{
     }
 
 
-    async closeCommentForm(postIds){
+    async closeCommentForm(postId){
         let content = ''
-        document.getElementById(`${postIds}1`).style.display = 'none'
-        document.getElementById(`${postIds}`).innerHTML = content
+        document.getElementById(`${postId}1`).style.display = 'none'
+        document.getElementById(`${postId}`).innerHTML = content
     }
 
     async buildCommentForm(postId){
@@ -37,15 +38,16 @@ export class CommentController{
         }
     }
 
-    async postComment(){
+    async postComment(postId){
         try {
             event.preventDefault()
             let form = event.target
             let formData = getFormData(form)
-            formData.postedBy = AppState.account.id
-            await commentService.postComment(formData)
-            await form.reset()
-            this.closeCommentForm()
+            // formData.postedBy = AppState.account.id
+            // formData.postId = postId
+            await commentService.postComment(formData, postId)
+            form.reset()
+            this.closeCommentForm(postId)
         } catch (error) {
             
         }

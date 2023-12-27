@@ -9,6 +9,7 @@ export class Comment{
     constructor(data){
         this.postedBy = data.postedBy
         this.body = data.body
+        this.postId = data.postId
     }
 
     static commentHomeTemplate(){

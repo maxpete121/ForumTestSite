@@ -9,13 +9,16 @@ class CommentService{
 
     async getComments(){
         const response = await api.get('api/comments')
-        let allComments = response.data.map(comment => new Comment(comment))
+        console.log(response)
+        let allComments = await response.data.map(comment => new Comment(comment))
         AppState.Comments = allComments
+        console.log(AppState.Comments)
     }
 
-    async postComment(formData){
+    async postComment(formData, postId){
         if(formData != undefined){
             formData.postedBy = AppState.account.id
+            formData.postId = postId
         }
         let response = await api.post('api/comments', formData)
         console.log(response)

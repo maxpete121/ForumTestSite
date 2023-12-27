@@ -14,6 +14,12 @@ function _drawPosts(){
     document.getElementById('post-view').innerHTML = content
 }
 
+function _drawComments(postId){
+    let comments = AppState.Comments
+    let foundComments = comments.findIndex(comment => comment.postId == postId)
+    console.log('test draw', foundComments)
+}
+
 export class PostController{
     constructor(){
         console.log('Post Controller Loaded')
@@ -57,6 +63,7 @@ export class PostController{
             let viewPost = posts.find(post => post.id == postId)
             let content = viewPost.singlePostTemplate
             document.getElementById('comment-view-main').innerHTML = content
+            _drawComments(postId)
         } catch (error) {
             Pop.error('Post not found')
         }
