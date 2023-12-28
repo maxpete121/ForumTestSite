@@ -7,27 +7,26 @@ import { Post } from "./Post.js"
 
 export class Comment{
     constructor(data){
+        this.id = data.id
         this.postedBy = data.postedBy
         this.body = data.body
         this.postId = data.postId
-    }
-
-    static commentHomeTemplate(){
-        return`
-        
-        `
+        this.user = data.user
     }
 
 
-    get commentTemplate(){
+     get commentsTemplate(){
         return`
         <div class="comment-card">
         <span class="d-flex">
             <h6 class="me-2">Posted By:</h6>
-            <h6>${this.postedBy.name}</h6>
+            <h6>${this.user}</h6>
         </span>
         <span>
-            <p></p>
+            <p>${this.body}</p>
+        </span>
+        <span>
+        <button onclick="app.CommentController.deleteComment('${this.id}')">Delete</button>
         </span>
     </div>
         `

@@ -6,6 +6,7 @@ import { Pop } from "../utils/Pop.js"
 import { getFormData } from "../utils/FormHandler.js"
 import { Account } from "../models/Account.js"
 import { commentService } from "../services/CommentService.js"
+import { Comment } from "../models/Comment.js"
 
 function _drawPosts(){
     let allPosts = AppState.Posts
@@ -14,10 +15,11 @@ function _drawPosts(){
     document.getElementById('post-view').innerHTML = content
 }
 
-function _drawComments(postId){
-    let comments = AppState.Comments
-    let foundComments = comments.filter(comment => comment.postId == postId)
-    console.log('test draw', foundComments)
+function _drawComments(){
+    let allComment = AppState.activeComments
+    let content = ''
+    allComment.forEach(comment => content += comment.commentsTemplate)
+    document.getElementById('comment-draw').innerHTML = content
 }
 
 export class PostController{
@@ -57,13 +59,23 @@ export class PostController{
 
     }
 
+    async foundComments(postId){
+        let comments = AppState.Comments
+        let foundComments = comments.filter(comment => comment.postId == postId)
+        AppState.activeComments = foundComments
+        console.log('test draw', foundComments)
+        _drawComments()
+    }
+
     async drawPostView(postId){
         try {
             let posts = AppState.Posts
             let viewPost = posts.find(post => post.id == postId)
+            AppState.activePost = viewPost
             let content = viewPost.singlePostTemplate
+            let newId = AppState.activePost.id
             document.getElementById('comment-view-main').innerHTML = content
-            _drawComments(postId)
+            this.foundComments(newId)
         } catch (error) {
             Pop.error('Post not found')
         }
@@ -72,7 +84,6 @@ export class PostController{
     async deletePost(postId){
         try {
             await postService.deletePost(postId)
-            _drawPosts()
         } catch (error) {
             
         }

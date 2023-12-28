@@ -20,11 +20,22 @@ class CommentService{
         if(formData != undefined){
             formData.postedBy = AppState.account.id
             formData.postId = postId
+            formData.user = AppState.account.name
         }
         let response = await api.post('api/comments', formData)
         console.log(response)
         let newComment = new Comment(response.data)
-        AppState.comments.push(newComment)
+        AppState.Comments.push(newComment)
+    }
+
+    async deleteComment(commentId){
+        const response = api.delete(`api/comments/${commentId}`)
+        let comments = AppState.Comments
+        let commentIndex = comments.findIndex(comment => comment.id == commentId)
+        AppState.Comments.splice(commentIndex, 1)
+        let commentA = AppState.activeComments
+        let commentAIndex = commentA.findIndex(comment => comment.id == commentId)
+        AppState.activeComments.splice(commentAIndex, 1)
     }
 }
 

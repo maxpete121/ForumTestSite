@@ -53,6 +53,7 @@ export class Post{
     <span class="d-flex">
         <h5 class="me-2">Comments:</h5>
     </span>
+    <div id="comment-draw"></div>
 </div>
         `
     }
