@@ -1,6 +1,7 @@
 import { AppState } from "../AppState.js"
 import { Account } from "../models/Account.js"
 import { api } from "./AxiosService.js"
+import { Comment } from "../models/Comment.js"
 
 
 
@@ -10,7 +11,7 @@ class CommentService{
     async getComments(){
         const response = await api.get('api/comments')
         console.log(response)
-        let allComments = await response.data.map(comment => new Comment(comment))
+        const allComments = await response.data.map(comments => new Comment(comments))
         AppState.Comments = allComments
         console.log(AppState.Comments)
     }

@@ -16,7 +16,7 @@ function _drawPosts(){
 
 function _drawComments(postId){
     let comments = AppState.Comments
-    let foundComments = comments.findIndex(comment => comment.postId == postId)
+    let foundComments = comments.filter(comment => comment.postId == postId)
     console.log('test draw', foundComments)
 }
 

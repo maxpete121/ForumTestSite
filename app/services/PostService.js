@@ -14,7 +14,7 @@ class PostService{
         console.log('Posts', response)
         const allPosts = response.data.map(post => new Post(post))
         AppState.Posts = allPosts
-        console.log(allPosts)
+        console.log(AppState.Posts)
     }
 
     async newPost(postData){
